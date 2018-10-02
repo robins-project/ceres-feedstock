@@ -1,0 +1,39 @@
+{% set version = "1.14.0" %}
+
+package:
+  name: ceres-solver
+  version: {{ version }}
+
+source:
+  fn: ceres-solver-{{ version }}.tar.gz
+  url: https://github.com/ceres-solver/ceres-solver/archive/{{ version }}.tar.gz
+  sha256: 1296330fcf1e09e6c2f926301916f64d4a4c5c0ff12d460a9bc5d4c48411518f
+
+build:
+    number: 0
+    features:
+      - feature_cuda_{{ cuda_impl }}
+      - feature_blas_{{ blas_impl }}
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - cmake
+    - ninja
+  host:
+    - eigen
+    - suitesparse
+    - glog
+  run:
+    - feature_blas {{ feature_blas }} {{ blas_impl }}
+    - feature_cuda {{ feature_cuda }} {{ cuda_impl }}
+
+about:
+  home: http://ceres-solver.org/
+  license: BSD
+  summary: 'C++ library for modeling and solving large, complicated optimization problems.'
+
+extra:
+  recipe-maintainers:
+    - v-turin
