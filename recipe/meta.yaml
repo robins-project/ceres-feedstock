@@ -22,9 +22,10 @@ requirements:
     - cmake
     - ninja
   host:
-    - eigen
-    - suitesparse
+    - eigen {{ eigen }}
+    - suitesparse {{ suitesparse }}
     - glog
+    - tbb-devel
   run:
     - feature_blas {{ feature_blas }} {{ blas_impl }}
     - feature_cuda {{ feature_cuda }} {{ cuda_impl }}
